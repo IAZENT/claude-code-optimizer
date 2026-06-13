@@ -50,7 +50,7 @@ set -euo pipefail
 SCRIPT_VERSION="1.0.0"
 SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]}" 2>/dev/null || readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")"
 INSTALL_DIR="$HOME/.local/bin"
-INSTALL_NAME="claude-optimize"
+INSTALL_NAME="claudeoptimize"
 
 # ─── Colors ───────────────────────────────────────────────────────────────────
 RED='\033[0;31m';  GREEN='\033[0;32m'; YELLOW='\033[1;33m'
@@ -789,16 +789,16 @@ main() {
         banner
         cat <<'HELP'
   Usage:
-    claude-optimize [OPTIONS]
+    claudeoptimize [OPTIONS]
 
   Installation:
     pip install claudeoptimize
 
   First-time setup:
-    claude-optimize --both      (from your project directory)
+    claudeoptimize --both      (from your project directory)
 
   Upgrade from legacy:
-    claude-optimize --upgrade   (adds v1.0.0 components only, safe mode)
+    claudeoptimize --upgrade   (adds v1.0.0 components only, safe mode)
 
   Options:
     --both                  Global + project setup (recommended first time)
@@ -811,17 +811,17 @@ main() {
     --yes  / -y             Skip all Y/n prompts — install everything automatically
     --dry-run               Preview changes without writing any files
     --status                Show what's configured (global + current project)
-    --install               Install as global 'claude-optimize' command
+    --install               Install as global 'claudeoptimize' command
     --help / -h             Show this help
 
   Examples:
-    claude-optimize --both --yes              # full setup, no prompts
-    claude-optimize --upgrade                 # legacy → v1.0.0 upgrade (safe)
-    claude-optimize --analyze                 # see token burn breakdown
-    claude-optimize --budget 150000           # set 150k daily limit
-    claude-optimize --project ~/myapp --yes  # project setup for myapp
-    claude-optimize --status                  # check what's installed
-    claude-optimize --dry-run --global        # preview global setup
+    claudeoptimize --both --yes              # full setup, no prompts
+    claudeoptimize --upgrade                 # legacy → v1.0.0 upgrade (safe)
+    claudeoptimize --analyze                 # see token burn breakdown
+    claudeoptimize --budget 150000           # set 150k daily limit
+    claudeoptimize --project ~/myapp --yes  # project setup for myapp
+    claudeoptimize --status                  # check what's installed
+    claudeoptimize --dry-run --global        # preview global setup
 
 HELP
         exit 0 ;;

@@ -6,7 +6,8 @@ do_update() {
   local TMP_DIR="/tmp/claude-optimize-update"
 
   if [[ ! -d "$SHARE_DIR" ]]; then
-    error "Not installed globally. Run ./claude-optimize.sh --install first."
+    error "Not installed via bash installer."
+    info "If you installed via PyPI, run: pip install --upgrade claudeoptimize"
     exit 1
   fi
 

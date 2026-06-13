@@ -15,7 +15,7 @@ classifiers = [
 requires-python = ">=3.7"
 
 [project.scripts]
-claude-optimize = "claudeoptimize.wrapper:main"
+claudeoptimize = "claudeoptimize.wrapper:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["claudeoptimize"]

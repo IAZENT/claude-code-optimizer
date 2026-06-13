@@ -53,7 +53,6 @@ Claude Code Optimizer has evolved from a configuration script into a fully modul
 ```bash
 pip install claudeoptimize
 ```
-*(Note: This installs the global `claude-optimize` CLI command.)*
 
 **Alternative (Bash Installer):**
 This script requires zero external dependencies to run. 
@@ -78,7 +77,7 @@ Once installed globally, you can initialize any project or update your global se
 ### Fast Track
 The recommended first-time setup command:
 ```bash
-claude-optimize --both --yes
+claudeoptimize --both --yes
 ```
 *(Installs the global `~/.claude/` config, initializes the current directory, and auto-installs the recommended token-saver CLI tools).*
 
@@ -86,15 +85,15 @@ claude-optimize --both --yes
 
 | Command | Description |
 |---|---|
-| `claude-optimize` | Interactive setup menu (Global, Project, Team, Docs, OSS). |
-| `claude-optimize --both` | Quick setup for global + current project. |
-| `claude-optimize --team` | Initialize the multi-agent Team Collaboration Pack. |
-| `claude-optimize --docs` | Scaffold the PRD and Architecture Docs Pack. |
-| `claude-optimize --oss-pack` | Install vetted open-source workflow skills. |
-| `claude-optimize --budget 150000` | Sets your daily token ceiling to 150k (used by the cost-guard hook). |
-| `claude-optimize --analyze` | Parses local logs to show your top token-burning projects today. |
-| `claude-optimize --status` | Checks your machine's optimization health and pack installation status. |
-| `claude-optimize --update` | Pulls the latest templates and components from GitHub and self-updates. |
+| `claudeoptimize` | Interactive setup menu (Global, Project, Team, Docs, OSS). |
+| `claudeoptimize --both` | Quick setup for global + current project. |
+| `claudeoptimize --team` | Initialize the multi-agent Team Collaboration Pack. |
+| `claudeoptimize --docs` | Scaffold the PRD and Architecture Docs Pack. |
+| `claudeoptimize --oss-pack` | Install vetted open-source workflow skills. |
+| `claudeoptimize --budget 150000` | Sets your daily token ceiling to 150k (used by the cost-guard hook). |
+| `claudeoptimize --analyze` | Parses local logs to show your top token-burning projects today. |
+| `claudeoptimize --status` | Checks your machine's optimization health and pack installation status. |
+| `claudeoptimize --update` | Pulls the latest templates and components from GitHub and self-updates. |
 
 ---
 

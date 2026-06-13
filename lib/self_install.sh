@@ -23,7 +23,7 @@ self_install() {
   local updated=false
   for rc in "$HOME/.bashrc" "$HOME/.zshrc" "$HOME/.profile"; do
     if [[ -f "$rc" ]] && ! grep -q "$INSTALL_DIR" "$rc" 2>/dev/null; then
-      printf '\n# claude-optimize\nexport PATH="%s:$PATH"\n' "$INSTALL_DIR" >> "$rc"
+      printf '\n# claudeoptimize\nexport PATH="%s:$PATH"\n' "$INSTALL_DIR" >> "$rc"
       log "Added $INSTALL_DIR to PATH in $rc"
       updated=true
     fi
@@ -36,8 +36,8 @@ self_install() {
   bullet "source ~/.zshrc     (zsh)"
   blank
   echo -e "  Then from any directory:"
-  bullet "claude-optimize --both     # full first-time setup"
-  bullet "claude-optimize --status   # check what's configured"
+  bullet "claudeoptimize --both     # full first-time setup"
+  bullet "claudeoptimize --status   # check what's configured"
   blank
   exit 0
 }
