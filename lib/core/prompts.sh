@@ -91,49 +91,100 @@ ask_number() {
   done
 }
 
+ask_menu() {
+  local prompt="$1"
+  shift
+  local options=("$@")
+  local selected=0
+  local key
+
+  # Hide cursor
+  tput civis >&2
+  # Cleanup on exit or Ctrl+C
+  trap 'tput cnorm >&2; exit 1' SIGINT
+
+  echo -e "  ${BOLD}$prompt${RESET}" >&2
+
+  while true; do
+    for i in "${!options[@]}"; do
+      if [[ $i -eq $selected ]]; then
+        echo -e "    ${CYAN}❯ ${options[$i]}${RESET}" >&2
+      else
+        echo -e "      ${DIM}${options[$i]}${RESET}" >&2
+      fi
+    done
+
+    # Read exactly 1 char, silent
+    read -rsn1 key
+
+    case "$key" in
+      $'\x1b') # Handle escape sequences (arrows)
+        read -rsn2 -t 0.1 key
+        if [[ "$key" == "[A" ]]; then # Up
+          ((selected--))
+          [[ $selected -lt 0 ]] && selected=$((${#options[@]} - 1))
+        elif [[ "$key" == "[B" ]]; then # Down
+          ((selected++))
+          [[ $selected -ge ${#options[@]} ]] && selected=0
+        fi
+        ;;
+      "") # Enter
+        break
+        ;;
+    esac
+
+    # Clear lines to redraw
+    for ((i=0; i<${#options[@]}; i++)); do
+      tput cuu1 >&2
+      tput el >&2
+    done
+  done
+
+  # Clear the menu text once selection is made
+  for ((i=0; i<${#options[@]}; i++)); do
+    tput cuu1 >&2
+    tput el >&2
+  done
+  tput cuu1 >&2
+  tput el >&2
+
+  # Restore cursor
+  tput cnorm >&2
+  trap - SIGINT
+  
+  # Return the selected index (0-based)
+  echo "$selected"
+}
+
 select_mode() {
   local cli_mode="$1"
   [[ -n "$cli_mode" ]] && echo "$cli_mode" && return
 
-  {
-    section "What Do You Want to Set Up?"
-
-    echo -e "  ${CYAN}${BOLD}1)  Global${RESET}  →  configure ${BOLD}~/.claude/${RESET}"
-    dim    "      Applies to ALL your projects on this machine."
-    dim    "      Creates: CLAUDE.md · settings.json · MCP servers · safety hooks"
-    dim    "               subagents (researcher / tester / reviewer) · slash commands · skills"
-    dim    "      ${GREEN}Do this ONCE per machine. Projects inherit it automatically.${RESET}"
-    blank
-    echo -e "  ${CYAN}${BOLD}2)  Project${RESET} →  configure ${BOLD}.claude/${RESET} in your project"
-    dim    "      Applies to ONE project only."
-    dim    "      Creates: CLAUDE.md · settings.json · .mcp.json"
-    dim    "               session / discovery / quality hooks · domain agents · commands"
-    dim    "      ${YELLOW}Requires global setup (option 1 or 3) to be done first.${RESET}"
-    blank
-    echo -e "  ${CYAN}${BOLD}3)  Both${RESET}    →  global, then project  ${DIM}(recommended for first-time setup)${RESET}"
-    dim    "      Does option 1 + 2 in sequence."
-    dim    "      Everything configured in a single run."
-    blank
-    echo -e "  ${CYAN}${BOLD}4)  Team Pack${RESET}    →  multi-agent + workflow setup"
-    echo -e "  ${CYAN}${BOLD}5)  Docs Pack${RESET}    →  PRD + architecture + specs generation"
-    echo -e "  ${CYAN}${BOLD}6)  OSS Skill Pack${RESET} →  install vetted open-source skills"
-    blank
-  } >&2
+  local options=(
+    "Global + Project Setup (Recommended)"
+    "Global Setup Only"
+    "Project Setup Only"
+    "Team Pack Setup"
+    "Docs Pack Setup"
+    "OSS Skill Pack Setup"
+    "Update claudeoptimize"
+    "Check Optimization Status"
+    "Exit"
+  )
 
   local choice
-  while true; do
-    printf "  ${CYAN}▶${RESET} ${BOLD}Enter 1-6 [default: 3]:${RESET} " >&2
-    read -r choice
-    choice="${choice:-3}"
-    case "$choice" in
-      1) echo "global";  break ;;
-      2) echo "project"; break ;;
-      3) echo "both";    break ;;
-      4) echo "team";    break ;;
-      5) echo "docs";    break ;;
-      6) echo "oss";     break ;;
-      *) error "Invalid choice '$choice'. Enter a number between 1 and 6." ;;
-    esac
-  done
-  blank >&2
+  choice=$(ask_menu "What Do You Want to Set Up?" "${options[@]}")
+
+  case "$choice" in
+    0) echo "both" ;;
+    1) echo "global" ;;
+    2) echo "project" ;;
+    3) echo "team" ;;
+    4) echo "docs" ;;
+    5) echo "oss" ;;
+    6) echo "update" ;;
+    7) echo "status" ;;
+    8) echo "exit" ;;
+    *) echo "exit" ;;
+  esac
 }

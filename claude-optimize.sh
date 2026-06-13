@@ -871,6 +871,16 @@ HELP
     oss)
       setup_oss_pack
       ;;
+    update)
+      do_update
+      ;;
+    status)
+      check_deps
+      show_status
+      ;;
+    exit)
+      exit 0
+      ;;
   esac
 }
 
