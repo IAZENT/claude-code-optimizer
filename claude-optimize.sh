@@ -2450,35 +2450,6 @@ install_tools() {
     fi
   fi
 
-  # ── Tool 4: claude-mem (plugin — must be installed INSIDE Claude Code) ───────
-  step_banner "T4" "T5" "claude-mem" "Persistent memory plugin — survives session restarts via SQLite"
-  dim "claude-mem stores session history, compresses it, re-injects relevant context."
-  dim "Addresses 'session amnesia' — Claude remembers what it learned in past sessions."
-  dim "${YELLOW}⚠️  This is a Claude Code PLUGIN — cannot be installed by this script.${RESET}"
-  dim "You must install it INSIDE a Claude Code session (see manual steps below)."
-  blank
-  if want_component "claude-mem (show install instructions)"; then
-    blank
-    echo -e "  ${BOLD}Install claude-mem inside Claude Code:${RESET}"
-    bullet "1. Open Claude Code: cd /your/project && claude"
-    bullet "2. Run: /plugin marketplace add thedotmack/claude-mem"
-    bullet "3. Run: /plugin install claude-mem"
-    bullet "4. Restart Claude Code — memory is now persistent"
-    blank
-    dim "What it saves: re-reading old decisions, re-exploring same code paths."
-    dim "Works alongside MEMORY.md (complementary, not a replacement)."
-    blank
-
-    # Write a reminder to MEMORY.md if it exists
-    local mem_file="${CLAUDE_PROJECT_DIR:-.}/.claude/MEMORY.md"
-    if [[ -f "$mem_file" ]] && ! $DRY_RUN; then
-      if ! grep -q "claude-mem" "$mem_file" 2>/dev/null; then
-        printf '\n## Tool Reminder\n- Install claude-mem plugin for persistent memory across sessions:\n  /plugin marketplace add thedotmack/claude-mem → /plugin install claude-mem\n' >> "$mem_file"
-        log "Reminder added to .claude/MEMORY.md"
-      fi
-    fi
-  fi
-
   # ── Tool 4: claude-token-saver ──────────────────────────────────────────────
   step_banner "T4" "T6" "claude-token-saver" "Statusline & 1M-context monitor — prevents context bloat"
   dim "Monitors Claude Code's prompt caching TTL and flags sudden token spikes."
