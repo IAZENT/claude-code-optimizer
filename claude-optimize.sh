@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# claude-optimize  v1.0.0  |  Claude Code Optimizer
+# claude-optimize  v1.0.3  |  Claude Code Optimizer
 # Max output · Min tokens · Free stack · Solo developer edition
 #
 #  CHANGELOG
@@ -47,7 +47,7 @@
 
 set -euo pipefail
 
-SCRIPT_VERSION="1.0.0"
+SCRIPT_VERSION="1.0.3"
 SCRIPT_PATH="$(realpath "${BASH_SOURCE[0]}" 2>/dev/null || readlink -f "${BASH_SOURCE[0]}" 2>/dev/null || echo "${BASH_SOURCE[0]}")"
 INSTALL_DIR="$HOME/.local/bin"
 INSTALL_NAME="claudeoptimize"

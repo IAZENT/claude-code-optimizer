@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "claudeoptimize"
-version = "1.0.0"
+version = "1.0.3"
 description = "Token economy and workflow stack for Claude Code"
 readme = "README.md"
 authors = [{ name = "IAZENT" }]
