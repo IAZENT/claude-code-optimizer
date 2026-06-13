@@ -53,6 +53,7 @@ Claude Code Optimizer has evolved from a configuration script into a fully modul
 ```bash
 pip install claudeoptimize
 ```
+*(Note: This installs the global `claude-optimize` CLI command.)*
 
 **Alternative (Bash Installer):**
 This script requires zero external dependencies to run. 
