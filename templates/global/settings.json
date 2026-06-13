@@ -1,0 +1,76 @@
+{
+  "_doc": "Global settings — applies to all projects. Project overrides in .claude/settings.json",
+  "model": "claude-sonnet-4-6",
+  "effortLevel": "normal",
+  "CLAUDE_CODE_SUBAGENT_MODEL": "claude-haiku-4-5",
+  "ENABLE_PROMPT_CACHING_1H": "1",
+  "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "50",
+  "env": {
+    "CLAUDE_CODE_MAX_OUTPUT_TOKENS": "8096"
+    // "MAX_THINKING_TOKENS": "0"      // Set to 0 for trivial/lean tasks
+    // "MAX_THINKING_TOKENS": "10000"  // Set for heavy architecture/debugging
+  },
+  "permissions": {
+    "allow": [
+      "Bash(git:*)",
+      "Bash(npx:*)",
+      "Bash(npm:*)",
+      "Bash(node:*)",
+      "Bash(pnpm:*)",
+      "Read(**)",
+      "Write(src/**)",
+      "Edit(src/**)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(sudo rm:*)",
+      "Bash(sudo:*)",
+      "Write(.env:*)",
+      "Write(.env.*:*)",
+      "Write(*.pem:*)",
+      "Write(*.key:*)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [{ "type": "command", "command": "~/.claude/hooks/scripts/block-secrets.sh" }]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "~/.claude/hooks/scripts/block-dangerous-bash.sh" },
+          { "type": "command", "command": "~/.claude/hooks/scripts/effort-gate-pre.sh" }
+        ]
+      },
+      {
+        "matcher": "Read|Glob",
+        "hooks": [{ "type": "command", "command": "~/.claude/hooks/scripts/read-once.sh" }]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          { "type": "command", "command": "~/.claude/hooks/scripts/compact-output.sh" },
+          { "type": "command", "command": "~/.claude/hooks/scripts/effort-gate-post.sh" }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [{ "type": "command", "command": "~/.claude/hooks/scripts/format.sh" }]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [{ "type": "command", "command": "~/.claude/hooks/scripts/pre-compact.sh" }]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [{ "type": "command", "command": "~/.claude/hooks/scripts/subagent-capture.sh" }]
+      }
+    ]
+  }
+}

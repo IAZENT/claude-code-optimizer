@@ -1,0 +1,47 @@
+{
+  "_doc": "Global MCP servers — active for all projects. Project servers go in .mcp.json. Keep total active servers (global+project) at 3-6 — check with /context.",
+  "mcpServers": {
+    "context7": {
+      "_doc": "Live, version-pinned docs for npm/PyPI/etc packages. Kills outdated-API hallucination. No auth. Highest-value server — keep this one on.",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp"]
+    },
+    "github": {
+      "_doc": "GitHub API — read issues, PRs, search code. Needs a free PAT (see manual steps). Use a READ-ONLY token (contents:read, issues:read) to limit prompt-injection blast radius from untrusted issue/PR content.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-github"],
+      "env": { "GITHUB_PERSONAL_ACCESS_TOKEN": "<YOUR_GITHUB_PAT>" }
+    },
+    "fetch": {
+      "_doc": "Fetch any URL. Claude can read docs, changelogs, API specs, web pages.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"]
+    },
+    "_optional_playwright": {
+      "_doc": "ACTIVATE: rename to 'playwright'. Browser automation via accessibility snapshots (token-efficient — no raw screenshots). Lets Claude open the page it just built, check layout/contrast/overflow against DESIGN.md, and iterate — directly helps fix generic/broken UI output.",
+      "command": "npx",
+      "args": ["-y", "@playwright/mcp", "--headless"]
+    },
+    "_optional_figma": {
+      "_doc": "ACTIVATE: rename to 'figma', add your Figma PAT. Dev Mode access to layer structure, variants, and design tokens — turns a real Figma file into the source of truth instead of Claude guessing the design.",
+      "command": "npx",
+      "args": ["-y", "figma-developer-mcp", "--stdio"],
+      "env": { "FIGMA_API_KEY": "<YOUR_FIGMA_PAT>" }
+    },
+    "_optional_sequential-thinking": {
+      "_doc": "ACTIVATE: rename to 'sequential-thinking'. Forces step-by-step reasoning before complex answers. Useful for hard architecture/debugging sessions; leave off for routine work to save tokens.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"]
+    },
+    "_optional_memory": {
+      "_doc": "ACTIVATE: rename to 'memory'. Knowledge-graph MCP — persist facts across sessions. No auth. Overlaps with MEMORY.md; pick one to avoid duplicate token cost.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-memory"]
+    },
+    "_optional_time": {
+      "_doc": "ACTIVATE: rename to 'time'. Current time + timezone awareness. No auth needed. Cheap, but only enable if your work actually needs it.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-time"]
+    }
+  }
+}

@@ -1,0 +1,31 @@
+# Claude Code Ignore File
+# Prevents context window bloat and massive token burns on irrelevant files.
+
+# Dependencies
+node_modules/
+vendor/
+.venv/
+venv/
+env/
+__pycache__/
+
+# Build outputs
+dist/
+build/
+out/
+.next/
+.nuxt/
+.output/
+coverage/
+.turbo/
+
+# AI Tooling outputs
+.codesight/
+.repomix-output.md
+.repomix-output.xml
+.claude/.session/
+
+# Git / System
+.git/
+.DS_Store
+*.log

@@ -1,0 +1,5 @@
+{
+  "_doc": "Personal overrides for THIS machine only. NEVER commit this file.",
+  "_model_override_example": "Uncomment to use Opus for hard problems:",
+  "_model": "claude-opus-4-6"
+}

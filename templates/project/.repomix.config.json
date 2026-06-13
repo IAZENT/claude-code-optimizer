@@ -1,0 +1,31 @@
+{
+  "_doc": "Repomix config — run: npx repomix  to pack repo for Claude. Edit ignore list as needed.",
+  "output": {
+    "filePath": ".repomix-output.md",
+    "style": "markdown",
+    "showLineNumbers": false,
+    "copyToClipboard": false,
+    "removeComments": false,
+    "removeEmptyLines": false,
+    "topFilesLength": 10,
+    "showFileSummary": true
+  },
+  "ignore": {
+    "useGitignore": true,
+    "useDefaultPatterns": true,
+    "customPatterns": [
+      "dist/**", ".next/**", "build/**", "out/**",
+      "node_modules/**", "coverage/**", ".nyc_output/**",
+      "*.min.js", "*.min.css", "*.bundle.js",
+      "*.lock", "*.log", "*.map",
+      "*.png", "*.jpg", "*.jpeg", "*.gif", "*.svg", "*.ico", "*.webp",
+      "*.woff", "*.woff2", "*.ttf", "*.eot",
+      ".codesight/cache/**", ".claude/transcripts/**",
+      ".repomix-output.md", "__pycache__/**", "*.pyc",
+      ".venv/**", "venv/**", ".env/**"
+    ]
+  },
+  "security": {
+    "enableSecurityCheck": true
+  }
+}

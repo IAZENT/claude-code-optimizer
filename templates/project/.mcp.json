@@ -1,0 +1,21 @@
+{
+  "_doc": "Project-scoped MCPs. Global servers are in ~/.claude/claude_desktop_config.json",
+  "mcpServers": {
+    "git": {
+      "_doc": "Git MCP for this repo — read commits, diffs, branches.",
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-git", "--repository", "."]
+    }
+  },
+  "_optional_postgres": {
+    "_note": "Rename to 'postgres' and fill in your connection string to enable",
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-postgres"],
+    "env": { "POSTGRES_CONNECTION_STRING": "<YOUR_DB_URL>" }
+  },
+  "_optional_sqlite": {
+    "_note": "Rename to 'sqlite' and fill in your DB path to enable",
+    "command": "npx",
+    "args": ["-y", "@modelcontextprotocol/server-sqlite", "--db-path", "<YOUR_DB_PATH>"]
+  }
+}

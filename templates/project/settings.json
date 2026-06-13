@@ -1,0 +1,48 @@
+{
+  "_doc": "Commit this file. Personal machine overrides → settings.local.json (git-ignored).",
+  "permissions": {
+    "allow": [
+      "Bash(pnpm:*)",
+      "Bash(npx codesight:*)",
+      "Bash(npx repomix:*)",
+      "Bash(npx prettier:*)",
+      "Write(src/**)",
+      "Write(tests/**)",
+      "Edit(src/**)",
+      "Edit(tests/**)"
+    ],
+    "deny": [
+      "Write(dist/**)",
+      "Write(.next/**)",
+      "Write(node_modules/**)"
+    ]
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/session-start.sh" }]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Read|Grep",
+        "hooks": [{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/discovery-gate.sh" }]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/quality-gate.sh" }]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/pre-compact.sh" }]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [{ "type": "command", "command": "${CLAUDE_PROJECT_DIR}/.claude/hooks/scripts/subagent-capture.sh" }]
+      }
+    ]
+  }
+}
