@@ -789,12 +789,13 @@ main() {
         banner
         cat <<'HELP'
   Usage:
-    bash claude-optimize.sh [OPTIONS]
+    claude-optimize [OPTIONS]
+
+  Installation:
+    pip install claudeoptimize
 
   First-time setup:
-    chmod +x claude-optimize.sh && ./claude-optimize.sh --install
-    source ~/.bashrc
-    claude-optimize --both      (from any directory)
+    claude-optimize --both      (from your project directory)
 
   Upgrade from legacy:
     claude-optimize --upgrade   (adds v1.0.0 components only, safe mode)

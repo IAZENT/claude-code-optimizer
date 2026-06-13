@@ -49,6 +49,12 @@ Claude Code Optimizer has evolved from a configuration script into a fully modul
 
 ## 🚀 Installation
 
+**Recommended (via PyPI):**
+```bash
+pip install claudeoptimize
+```
+
+**Alternative (Bash Installer):**
 This script requires zero external dependencies to run. 
 
 ```bash
@@ -58,12 +64,7 @@ curl -fsSL https://raw.githubusercontent.com/IAZENT/claude-code-optimizer/main/c
 # 2. Make it executable
 chmod +x claude-optimize.sh
 
-# 3. Run the interactive installer
-./claude-optimize.sh
-```
-
-**To install it globally** so you can run it from any directory:
-```bash
+# 3. Run the interactive installer globally
 ./claude-optimize.sh --install
 ```
 
