@@ -29,6 +29,7 @@ Running this script injects a battle-tested stack of **hooks, skills, slash comm
 - 🛑 **Cost Guard:** A pre-tool hook that monitors your daily token usage via local JSONL logs. It warns you when you hit 80% of your daily budget, preventing accidental bill shock.
 - 🧠 **Chain-of-Draft (CoD):** A built-in `/user:chain-of-draft` command and `[lean]` skill that forces Claude to use ≤5-word bullet points for internal reasoning, drastically cutting down on output tokens.
 - ✂️ **Token Trim:** Auto-prunes stale decisions from your `MEMORY.md` when it exceeds 100 lines, killing context rot before it starts.
+- 🛑 **Context Bloat Protection:** Auto-generates an aggressive `.claudeignore` to block Claude from reading `node_modules`, `dist`, and cached outputs, saving thousands of tokens per file-system exploration.
 - 📦 **Smart Tool Integrations:** Auto-installs and configures 2026's best token-saving tools:
   - `rtk` (Rust Token Killer): Strips ANSI and noise from CLI outputs.
   - `claude-token-saver`: Real-time prompt caching TTL monitoring.
