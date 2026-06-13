@@ -1,0 +1,34 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "claudeoptimize"
+version = "1.0.0"
+description = "Token economy and workflow stack for Claude Code"
+readme = "README.md"
+authors = [{ name = "IAZENT" }]
+classifiers = [
+    "Programming Language :: Unix Shell",
+    "License :: OSI Approved :: MIT License",
+]
+requires-python = ">=3.7"
+
+[project.scripts]
+claude-optimize = "claudeoptimize.wrapper:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["claudeoptimize"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"claude-optimize.sh" = "claudeoptimize/claude-optimize.sh"
+"lib" = "claudeoptimize/lib"
+"templates" = "claudeoptimize/templates"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "claude-optimize.sh",
+    "lib",
+    "templates",
+    "claudeoptimize",
+]
